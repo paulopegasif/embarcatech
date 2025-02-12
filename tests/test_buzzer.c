@@ -1,6 +1,6 @@
 #include <stdio.h>
 
 int main() {
-    printf("Testando Botões\n");
+    printf("Testando Buzzer\n");
     return 0;
 }

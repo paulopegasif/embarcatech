@@ -47,8 +47,12 @@ project(metronome C CXX ASM)
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
+
+
+
+
 # Diretórios de código-fonte e headers
-add_subdirectory(src)
+#add_subdirectory(src)
 include_directories(include)
 
 # ===========================
@@ -61,8 +65,12 @@ add_executable(metronome
     src/buzzer.c
     src/buttons.c
     src/hardware_init.c
+    src/analog.c
+    src/led_matrix.c
+    src/ssd1306.c
 )
 
+pico_generate_pio_header(metronome ${CMAKE_CURRENT_LIST_DIR}/src/ws2812.pio)
 pico_set_program_name(metronome "metronome")
 pico_set_program_version(metronome "0.1")
 
@@ -81,6 +89,7 @@ target_link_libraries(metronome
     hardware_timer
     hardware_watchdog
     hardware_clocks
+    hardware_adc
 )
 
 # Diretórios de include
@@ -95,29 +104,29 @@ pico_add_extra_outputs(metronome)
 # Testes de Hardware
 # ===========================
 
-# Teste do Display OLED
-add_executable(test_display
-    tests/test_display.c
-    src/display.c
-)
-target_link_libraries(test_display pico_stdlib hardware_i2c)
-target_include_directories(test_display PRIVATE include)
-pico_add_extra_outputs(test_display)
+# # Teste do Display OLED
+# add_executable(test_display
+#     tests/test_display.c
+#     src/display.c
+# )
+# target_link_libraries(test_display pico_stdlib hardware_i2c)
+# target_include_directories(test_display PRIVATE include)
+# pico_add_extra_outputs(test_display)
 
-# Teste do Buzzer
-add_executable(test_buzzer
-    tests/test_buzzer.c
-    src/buzzer.c
-)
-target_link_libraries(test_buzzer pico_stdlib hardware_pwm)
-target_include_directories(test_buzzer PRIVATE include)
-pico_add_extra_outputs(test_buzzer)
+# # Teste do Buzzer
+# add_executable(test_buzzer
+#     tests/test_buzzer.c
+#     src/buzzer.c
+# )
+# target_link_libraries(test_buzzer pico_stdlib hardware_pwm)
+# target_include_directories(test_buzzer PRIVATE include)
+# pico_add_extra_outputs(test_buzzer)
 
-# Teste dos Botões
-add_executable(test_buttons
-    tests/test_buttons.c
-    src/buttons.c
-)
-target_link_libraries(test_buttons pico_stdlib hardware_gpio)
-target_include_directories(test_buttons PRIVATE include)
-pico_add_extra_outputs(test_buttons)
+# # Teste dos Botões
+# add_executable(test_buttons
+#     tests/test_buttons.c
+#     src/buttons.c
+# )
+# target_link_libraries(test_buttons pico_stdlib hardware_gpio)
+# target_include_directories(test_buttons PRIVATE include)
+# pico_add_extra_outputs(test_buttons)
