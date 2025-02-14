@@ -1,20 +1,25 @@
 #include "analog.h"
+#include "hardware/adc.h"
 
-#define PIN_JOYSTICK_X 26
-#define PIN_JOYSTICK_Y 27
+#define POTENTIOMETER_PIN 26  // GPIO26 (ADC0)
+#define MIN_BPM 30
+#define MAX_BPM 240
 
 void analog_init() {
     adc_init();
-    adc_gpio_init(PIN_JOYSTICK_X);
-    adc_gpio_init(PIN_JOYSTICK_Y);
+    adc_gpio_init(POTENTIOMETER_PIN);
+    adc_select_input(0); // Configura para ler o ADC0
 }
 
-uint16_t read_analog_x() {
-    adc_select_input(0);  // Canal 0 para X
-    return adc_read();
-}
+int analog_read_bpm() {
+    uint16_t raw_value = adc_read(); // Lê o valor do ADC (0 - 4095)
+    
+    // Converte para BPM dentro da faixa desejada
+    int bpm = MIN_BPM + ((raw_value * (MAX_BPM - MIN_BPM)) / 4095);
+    
+    // Garante que o BPM fique dentro dos limites
+    if (bpm < MIN_BPM) bpm = MIN_BPM;
+    if (bpm > MAX_BPM) bpm = MAX_BPM;
 
-uint16_t read_analog_y() {
-    adc_select_input(1);  // Canal 1 para Y
-    return adc_read();
+    return bpm;
 }

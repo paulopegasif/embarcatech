@@ -1,11 +1,12 @@
 #ifndef ANALOG_H
 #define ANALOG_H
 
-#include "pico/stdlib.h"
-#include "hardware/adc.h"
+#include <stdint.h>
 
+// Inicializa a leitura analógica
 void analog_init();
-uint16_t read_analog_x();
-uint16_t read_analog_y();
 
-#endif // ANALOG_H
+// Lê o potenciômetro e retorna um BPM entre 30 e 240
+int analog_read_bpm();
+
+#endif

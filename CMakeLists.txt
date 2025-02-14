@@ -113,11 +113,11 @@ pico_add_extra_outputs(metronome)
 # target_include_directories(test_display PRIVATE include)
 # pico_add_extra_outputs(test_display)
 
-# # Teste do Buzzer
-# add_executable(test_buzzer
-#     tests/test_buzzer.c
-#     src/buzzer.c
-# )
+# Teste dos Buzzers
+add_executable(test_buzzer tests/test_buzzer.c src/buzzer.c)
+target_link_libraries(test_buzzer pico_stdlib hardware_gpio)
+pico_add_extra_outputs(test_buzzer)
+
 # target_link_libraries(test_buzzer pico_stdlib hardware_pwm)
 # target_include_directories(test_buzzer PRIVATE include)
 # pico_add_extra_outputs(test_buzzer)

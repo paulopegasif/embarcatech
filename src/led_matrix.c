@@ -1,25 +1,34 @@
 #include "led_matrix.h"
-#include "ws2812.pio.h"
+#include "hardware/gpio.h"
+#include "pico/stdlib.h"
 
-#define NUM_LEDS 25
-#define MATRIX_WIDTH 5
-#define MATRIX_HEIGHT 5
-#define WS2812_PIN 7
+#define LED_PIN_1 2  // Primeiro LED da matriz
+#define LED_PIN_2 3
+#define LED_PIN_3 4
+#define LED_PIN_4 5  // Ajuste conforme sua matriz
+#define LED_PIN_5 6
+#define LED_PIN_6 7
 
-PIO pio;
-uint sm;
+#define TOTAL_LEDS 6 // Se houver mais LEDs, aumente aqui
+
+static const int led_pins[TOTAL_LEDS] = {LED_PIN_1, LED_PIN_2, LED_PIN_3, LED_PIN_4, LED_PIN_5, LED_PIN_6};
 
 void led_matrix_init() {
-    uint offset = pio_add_program(pio0, &ws2812_program);
-    ws2812_program_init(pio0, 0, offset, WS2812_PIN, 800000, false);
+    for (int i = 0; i < TOTAL_LEDS; i++) {
+        gpio_init(led_pins[i]);
+        gpio_set_dir(led_pins[i], GPIO_OUT);
+        gpio_put(led_pins[i], 0); // Inicializa desligado
+    }
 }
 
-void update_led_matrix(uint8_t x, uint8_t y) {
-    uint32_t color = (x + y) % 2 == 0 ? 0x00FF00 : 0xFF0000; // Alternar cores
-    for (int i = 0; i < NUM_LEDS; i++) {
-        uint led_x = i % MATRIX_WIDTH;
-        uint led_y = i / MATRIX_WIDTH;
-        uint32_t pixel = (led_x == x && led_y == y) ? color : 0x000000;
-        pio_sm_put_blocking(pio0, 0, pixel);
+void led_matrix_show_beat(int beat, int time_signature) {
+    // Apaga todos os LEDs antes de acender o novo
+    for (int i = 0; i < TOTAL_LEDS; i++) {
+        gpio_put(led_pins[i], 0);
+    }
+
+    // Acende o LED correspondente à batida
+    if (beat < time_signature && beat < TOTAL_LEDS) {
+        gpio_put(led_pins[beat], 1);
     }
 }
