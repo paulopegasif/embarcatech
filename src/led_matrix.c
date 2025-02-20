@@ -106,7 +106,7 @@ void led_matrix_test_pattern() {
                 put_pixel(led_colors[i]);
             }
             
-            sleep_ms(200);
+            sleep_ms(100);
         }
     }
 }
