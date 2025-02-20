@@ -10,7 +10,7 @@ Este projeto é um **metrônomo digital** desenvolvido utilizando o **Raspberry 
 - Emite sons rítmicos com o buzzer.
 - Matriz de LEDs sincronizada com os compassos.
 - Botões para aumentar e diminuir o BPM.
-- Mensagem motivacional exibida no display.
+- Mensagem do andamento atual (BPM) exibida no display.
 
 ---
 
@@ -18,8 +18,6 @@ Este projeto é um **metrônomo digital** desenvolvido utilizando o **Raspberry 
 
 - **Raspberry Pi Pico W** 
 - **Display OLED 128x64 (I2C)**
-  - **SDA** no **GP14**
-  - **SCL** no **GP15**
 - **Matriz de LEDs** para indicação de compassos
 - **Buzzer** para emitir o som rítmico
 - **Botões** para controle do BPM
@@ -27,25 +25,15 @@ Este projeto é um **metrônomo digital** desenvolvido utilizando o **Raspberry 
 
 ---
 
-## Configuração e Instalação
+## Instalação e Configuração
 
 ### Pré-requisitos
 
 - **VSCode** com a extensão **Pi Pico** instalada
 - **CMake** e **GNU Make** configurados
 - **SDK do Raspberry Pi Pico** instalado
+- Extensões para C e Raspiberry Pico no VSCode
 
-### Clonando o Repositório
-
-```bash
-git clone https://github.com/paulopegasif/embarcatech.git
-cd metronome-new
-
-## Configurando o Ambiente
-	1.	Abra o projeto no VSCode.
-	2.	Certifique-se de que a extensão Pi Pico está instalada e ativa.
-	3.	Selecione o arquivo CMakeLists.txt.
-	4.	Clique em “Build” na extensão Pi Pico.
 
 ### Funcionalidades dos Módulos
 
@@ -65,3 +53,9 @@ Matriz de LEDs (led_matrix.c e led_matrix.h)
 
 Hardware Init (hardware_init.c e hardware_init.h)
 	•	Configuração inicial dos pinos do Raspberry Pi Pico W.
+
+
+### Autor
+
+Desenvolvido por Paulo Silva. Sinta-se à vontade para contribuir, sugerir melhorias ou relatar problemas!
+Este metrônomo foi criado para fornecer uma experiência precisa e interativa para músicos e entusiastas de tecnologia. Mantenha o ritmo!
